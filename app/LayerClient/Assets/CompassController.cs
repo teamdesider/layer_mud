@@ -60,11 +60,11 @@ public class CompassController : MonoBehaviour
     {
         if (timeCount >= timeLimit)
         {
-            float compassVal = GetCompassVal();
-            if (compassVal > 0)
-            {
-                textArea.text = compassVal.ToString();
-            }
+            GetCompassVal();
+            //if (compassVal > 0)
+            //{
+            //    textArea.text = compassVal.ToString();
+            //}
             timeCount = 0;
         }
         else
