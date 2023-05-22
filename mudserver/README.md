@@ -4,3 +4,8 @@ The synchronized scripts are located in the folder:
 ```
 packages/shell
 ```
+
+To start the service, execute the following command within the "create" folder:
+```
+pnpm run dev
+```
