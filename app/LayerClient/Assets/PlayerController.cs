@@ -30,7 +30,6 @@ public class PlayerController : MonoBehaviour
     {
         if (!TryGetTouchPosition(out Vector2 touchPosition))
             return;
-        Debug.Log("click screen");
         Ray ray = arCamera.ScreenPointToRay(crosshairController.GetCrossHairScreenPosition());
 
         if (Physics.Raycast(ray, out RaycastHit hit))
@@ -58,7 +57,6 @@ public class PlayerController : MonoBehaviour
 
         }
     }
-
 
     private void LockHandler()
     {
@@ -135,6 +133,8 @@ public class PlayerController : MonoBehaviour
 
     bool PendingHandler(GameObject gb)
     {
+        Debug.Log("init"+gameStateController);
+        //instance exist
         gameStateController.AddNewPending(gb);
         return true;
         return false;

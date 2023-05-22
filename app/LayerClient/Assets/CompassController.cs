@@ -61,11 +61,7 @@ public class CompassController : MonoBehaviour
         if (timeCount >= timeLimit)
         {
             GetCompassVal();
-            //if (compassVal > 0)
-            //{
-            //    textArea.text = compassVal.ToString();
-            //}
-            timeCount = 0;
+
         }
         else
         {
@@ -98,8 +94,8 @@ public class CompassController : MonoBehaviour
     public void GetNorthVector()
     {
 
-        // TODO Moc data
-        if (true)
+
+        if (headingDegree==-1)
         {
             //DebugManager.Instance.LogInfo("Compass is not enable");
             var currentVector = Vector3.ProjectOnPlane(arCamera.transform.forward, Vector3.up).normalized;

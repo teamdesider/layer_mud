@@ -46,7 +46,6 @@ public class RequestRemoteController : MonoBehaviour
         string res = await httpRequestController.SendHttpRequest(httpRequestController.collectUrl, RequestType.POST, new CollectBlockBody() { id = itemId });
     }
 
-    //TODO
     public async void CheckCollectableOnChainStatus(string itemId,ConcurrentDictionary<string, PendingItem> pendingDict) {
         while (httpRequestController == null)
         {
@@ -57,27 +56,38 @@ public class RequestRemoteController : MonoBehaviour
         pendingDict[itemId].status = PendingItemStatus.checking;
 
 
-        //TODO 
-        //string finalUrl = httpRequestController.checkCollectStatusUrl + "?id=" + itemId;
-        ////pendingDict[itemId].status = PendingItemStatus.pending;
+        //TODO Production
+        string finalUrl = httpRequestController.checkCollectStatusUrl + "?id=" + itemId;
+        //pendingDict[itemId].status = PendingItemStatus.pending;
 
-        //string res = await httpRequestController.SendHttpRequest(finalUrl, RequestType.GET);
+        string res = await httpRequestController.SendHttpRequest(finalUrl, RequestType.GET);
 
-        //var status = JsonUtility.FromJson<StatusInstance>(res);
 
-        await Task.Delay(3);
 
-        var status = new StatusInstance() { code = 1 };
+        //await Task.Delay(3);
 
-        if (status.code==1)
+        //var status = new StatusInstance() { code = 1 };
+
+        if (res != "error")
         {
-            pendingDict[itemId].status = PendingItemStatus.settled;
+            var status = JsonUtility.FromJson<StatusInstance>(res);
+
+            if (status.code == 1)
+            {
+                pendingDict[itemId].status = PendingItemStatus.settled;
+            }
+            else
+            {
+                pendingDict[itemId].status = PendingItemStatus.pending;
+
+            }
         }
         else
         {
-            pendingDict[itemId].status = PendingItemStatus.pending;
+            pendingDict[itemId].status = PendingItemStatus.failed;
 
         }
+
         //else
         //{
         //    pendingDict[itemId].status = PendingItemStatus.failed;
@@ -111,6 +121,7 @@ public class RequestRemoteController : MonoBehaviour
 
         if (res == "error")
         {
+            // If the backend is down, use the local data to generate
             //Debug.Log("error occur");
             jsonFile = Resources.Load<TextAsset>("remote");
             string jsonText = jsonFile.text;
