@@ -23,7 +23,40 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         LockHandler();
+        CollectHandler();
+    }
 
+    public void CollectHandler()
+    {
+        if (!TryGetTouchPosition(out Vector2 touchPosition))
+            return;
+        Debug.Log("click screen");
+        Ray ray = arCamera.ScreenPointToRay(crosshairController.GetCrossHairScreenPosition());
+
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            GameObject hitGB = hit.collider.gameObject;
+            PendingHandler(hitGB);
+            PendingCollect(hitGB);
+            //if (hitGB.CompareTag("Collectable"))
+            //{
+
+            //    //UpdateInventory(hitGB);
+            //    //UpdateEnergy(collectSpendEnergy);
+            //    //ProcessAfterCollected(hitGB);
+
+            //    //Debug.Log(hit.collider.gameObject);
+
+            //}
+            //else if (hitGB.CompareTag("Token"))
+            //{
+            //    //UpdateToken();
+            //    //UpdateEnergy(collectSpendEnergy);
+            //    //ProcessAfterCollected(hitGB);
+
+            //}
+
+        }
     }
 
 
