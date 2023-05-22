@@ -4,6 +4,7 @@ pragma solidity >=0.8.0;
 import { System } from "@latticexyz/world/src/System.sol";
 import { Chunks, ChunksData, ChunksTableId } from "../codegen/Tables.sol";
 import { ChunksTimes, ChunksTimesTableId } from "../codegen/Tables.sol";
+import "./Layer1155.sol";
 
 contract ChunksSystem is System {
   uint256 private nonce = 0;
@@ -65,10 +66,13 @@ contract ChunksSystem is System {
       Chunks.set(k_id, times, x, y, t, uid, tm, times, 0);
   }
 
-  function collectChunks(uint256 x, uint256 y, uint256 uid) public {
+  function collectChunks(uint256 x, uint256 y, uint256 uid, address _addr1155) public {
     uint256 k_id = generateUniqueId(x, y, uid);
     uint256 times = ChunksTimes.get(k_id);
+    ChunksData memory c = Chunks.get(k_id, times);
+    require(c.t > 0, "error data");
     Chunks.setState(k_id, times, 1);
+    Layer1155(_addr1155).pubmint(msg.sender, 1);
   }
 
   function generateUniqueId(
