@@ -4,8 +4,14 @@ The synchronized scripts are located in the folder:
 ```
 packages/shell
 ```
+We are working on a mobile app project, and I carefully reviewed the documentation and analyzed the code repository template, but couldn't find a solution. I attempted some debugging on my own, but couldn't achieve the desired outcome within the limited time. As a last resort, I resorted to the only approach that came to mind: using `Expres`s to create an API service that forwards requests to the MUD service. Since MUD's data is loaded asynchronously, I had to employ the headless browser package `Puppetee`r` within the API service to scrape data from MUD. I would appreciate it if MUD could provide a dedicated method for API usage in the future, or if such a method already exists, please clarify it in the documentation.
 
 To start the service, execute the following command within the "create" folder:
 ```
 pnpm run dev
+```
+To start the API service within the current code repository, execute the following command:
+```
+cd mudserver/packages/apiserver
+node index.js
 ```
