@@ -40,7 +40,7 @@
         "com.unity.xr.arcore": "4.2.7",
         "com.unity.xr.magicleap": "6.4.1",
         "com.unity.xr.arkit-face-tracking": "4.2.7",
-        "com.unity.xr.openxr": "1.6.0"
+        "com.unity.xr.openxr": "1.7.0"
       }
     },
     "com.unity.feature.development": {
@@ -331,7 +331,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.xr.openxr": {
-      "version": "1.6.0",
+      "version": "1.7.0",
       "depth": 1,
       "source": "registry",
       "dependencies": {
